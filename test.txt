@@ -1,0 +1,314 @@
+#include<stdio.h>
+#include<conio.h>
+#include "ApiExusb.h"
+#pragma comment(lib,"ApiExusb.lib")
+#include<math.h>
+char b[10]={0xb0,0xb1,0xb2,0xb3,0xb4,0xb5,0xb6,0xb7,0xb8,0xb9};  //0到9字符的低位机内码
+int sj;
+
+
+/*LCD屏的执行命令*/
+void cmdsetup(){
+    PortWriteByte(0x289,0x00);
+    Sleep(1);	
+    PortWriteByte(0x289,0x04);
+    Sleep(1);	
+    PortWriteByte(0x289,0x00);
+    Sleep(1);	
+}
+
+/*LCD屏的清屏命令*/
+void clear(){
+    PortWriteByte(0x288,0x00);	
+    cmdsetup();
+}
+
+/*LCD屏的输出命令*/
+void datasetup(){
+    PortWriteByte(0x289,0x01);
+    Sleep(1);	
+    PortWriteByte(0x289,0x05);	
+    Sleep(1);
+    PortWriteByte(0x289,0x01);	
+    Sleep(1);
+}
+
+/*LCD屏显示函数*/
+void bigger (byte m[20],byte n){
+	byte i;
+	PortWriteByte(0x28b,0x81);       //8255的初始化,A、B口输出，C口输入
+	clear();
+
+	PortWriteByte(0x288,0x80);      //在LCD屏第1行输出
+	cmdsetup();
+	Sleep(10);
+
+//输出"频率发生器设计"
+      PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xB5);datasetup();
+	PortWriteByte(0x288,0xC2);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+	PortWriteByte(0x288,0xB7);datasetup();
+	PortWriteByte(0x288,0xA2);datasetup();
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xFA);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xF7);datasetup();
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xE8);datasetup();
+	PortWriteByte(0x288,0xBC);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+
+
+	PortWriteByte(0x288,0x90);      //在LCD屏第2行输出
+	cmdsetup();
+	Sleep(10);
+
+//输出"请输入理想频率"
+	PortWriteByte(0x288,0xC7);datasetup();
+	PortWriteByte(0x288,0xEB);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+	PortWriteByte(0x288,0xE4);datasetup();
+	PortWriteByte(0x288,0xC8);datasetup();
+	PortWriteByte(0x288,0xEB);datasetup();
+	PortWriteByte(0x288,0xC0);datasetup();
+	PortWriteByte(0x288,0xED);datasetup();
+	PortWriteByte(0x288,0xCF);datasetup();
+	PortWriteByte(0x288,0xEB);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xB5);datasetup();
+	PortWriteByte(0x288,0xC2);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+
+
+
+	PortWriteByte(0x288,0x98);      //在LCD屏第4行输出
+	cmdsetup();
+	Sleep(10);
+
+	/*LCD屏显示"设计人员：杨杰"*/
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xE8);datasetup();
+	PortWriteByte(0x288,0xBC);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xC8);datasetup();
+	PortWriteByte(0x288,0xCB);datasetup();
+	PortWriteByte(0x288,0xD4);datasetup();
+	PortWriteByte(0x288,0xB1);datasetup();
+	PortWriteByte(0x288,0xA3);datasetup();
+	PortWriteByte(0x288,0xBA);datasetup();
+	PortWriteByte(0x288,0xD1);datasetup();
+	PortWriteByte(0x288,0xEE);datasetup();
+	PortWriteByte(0x288,0xBD);datasetup();
+	PortWriteByte(0x288,0xDC);datasetup();
+}
+
+void big (byte m[20],byte n){
+	byte i;
+	PortWriteByte(0x28b,0x81);       //8255的初始化,A、B口输出，C口输入
+	clear();
+
+
+	PortWriteByte(0x288,0x80);      //在LCD屏第1行输出
+	cmdsetup();
+	Sleep(10);
+
+//输出"频率发生器设计"
+        PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xB5);datasetup();
+	PortWriteByte(0x288,0xC2);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+	PortWriteByte(0x288,0xB7);datasetup();
+	PortWriteByte(0x288,0xA2);datasetup();
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xFA);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xF7);datasetup();
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xE8);datasetup();
+	PortWriteByte(0x288,0xBC);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+
+
+	PortWriteByte(0x288,0x90);      //在LCD屏第2行输出
+	cmdsetup();
+	Sleep(10);
+
+	/*LCD屏显示"理想输出频率值"*/
+	PortWriteByte(0x288,0xC0);datasetup();
+	PortWriteByte(0x288,0xED);datasetup();
+	PortWriteByte(0x288,0xCF);datasetup();
+	PortWriteByte(0x288,0xEB);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+	PortWriteByte(0x288,0xE4);datasetup();
+	PortWriteByte(0x288,0xB3);datasetup();
+	PortWriteByte(0x288,0xF6);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xB5);datasetup();
+	PortWriteByte(0x288,0xC2);datasetup();
+	PortWriteByte(0x288,0xCA);datasetup();
+	PortWriteByte(0x288,0xD6);datasetup();
+	PortWriteByte(0x288,0xB5);datasetup();
+
+
+	PortWriteByte(0x288,0x88);      //在LCD屏第3行输出
+	cmdsetup();
+	Sleep(10);
+	for (i=0;i<n;i++)                 //输出频率值
+	{
+		PortWriteByte(0x288,0xa3);
+		datasetup();
+		PortWriteByte(0x288,b[m[i]]);
+		datasetup();
+	}
+	PortWriteByte(0x288,0xBA);datasetup();//"赫"字的输出
+	PortWriteByte(0x288,0xD5);datasetup();
+	PortWriteByte(0x288,0xD7);datasetup(); //"兹"字的输出
+	PortWriteByte(0x288,0xC8);datasetup();
+
+
+	PortWriteByte(0x288,0x98);      //在LCD屏第4行输出
+	cmdsetup();
+	Sleep(10);
+
+	/*LCD屏显示"设计人员：杨杰"*/
+	PortWriteByte(0x288,0xC9);datasetup();
+	PortWriteByte(0x288,0xE8);datasetup();
+	PortWriteByte(0x288,0xBC);datasetup();
+	PortWriteByte(0x288,0xC6);datasetup();
+	PortWriteByte(0x288,0xC8);datasetup();
+	PortWriteByte(0x288,0xCB);datasetup();
+	PortWriteByte(0x288,0xD4);datasetup();
+	PortWriteByte(0x288,0xB1);datasetup();
+	PortWriteByte(0x288,0xA3);datasetup();
+	PortWriteByte(0x288,0xBA);datasetup();
+	PortWriteByte(0x288,0xD1);datasetup();
+	PortWriteByte(0x288,0xEE);datasetup();
+	PortWriteByte(0x288,0xBD);datasetup();
+	PortWriteByte(0x288,0xDC);datasetup();
+
+}
+
+/*8253输出频率函数*/
+void count(int num){
+	int n,s2,s3,i,j;
+	if(num > 0 && num< 1000000){	
+		double nn=1000000.0/num;
+		int n=1000000/num;		
+		i = nn*10;
+		j = i%10;//精确度判断
+		if(j>=5)
+               n++;
+		   double s0=sqrt(nn);
+		
+		if(s0>=100)//频率初值小，计算初值N特别大
+               {
+		    s2=s0;
+		    s3=s2;
+		    i=s0*10;
+		    j= i%10;//精确度判断
+		    if(j>=5)
+                  s3++;
+		   }
+		else //频率初值特别大，计算初值N特别小
+               {
+		   s2=2;
+		   s3=n/2;
+		   }
+		sj=1000000/s2/s3; 
+
+		
+		//通道1
+		int s21=s2/100,s22=s2%100;
+		s21=s21%10+s21/10*16;//通道1高字节 
+		s22=s22%10+s22/10*16;//通道1低字节
+		
+		//通道2
+		int s31=s3/100,s32=s3%100;
+		s31=s31%10+s31/10*16;//通道2高字节 
+		s32=s32%10+s32/10*16;//通道2低字节		
+		
+			
+		PortWriteByte(0x283,0x77);//通道1控制字01110111B,工作在方式3
+		PortWriteByte(0x281,s22);//先送低字节
+		PortWriteByte(0x281,s21);//再送高字节
+
+	        PortWriteByte(0x283,0xB7);//通道2控制字10110111B,工作在方式3
+	        PortWriteByte(0x282,s32);//先送低字节
+	        PortWriteByte(0x282,s31);//再送高字节
+
+							
+	}
+	else	{
+		printf("预输出频率超限1Mhz!");
+	}
+}
+/*主函数（8255键盘程序）*/
+void main(){
+	byte data;//字节变量
+	byte i,j;
+	int num=0;      //记录输入的频率值+
+	byte m[20];         //以数值的形式记录输入的频率值，便与LCD输出
+	byte n=0;
+	printf("按任意键开始运行\n\n");
+	getch();
+	if(!Startup())	{
+		printf("错误，打开设备错误\n");
+		return;
+	}
+   	printf("请输入频率值：");
+	while(!kbhit()){//键盘的输入
+		PortWriteByte(0x28b,0x81);//8255的初始化,A、B口输出，C口输入
+                                PortWriteByte(0x28a,0x0f);		
+                                PortReadByte(0x28a,&data);//0x28a->&data
+                                i=data;
+                                if (i!=0x0f) {
+        	                    Sleep(100);
+        	                    PortReadByte(0x28a,&data);
+        	                    i=data;
+		                    if(i!=0x0f) {
+		    	                       i=data;
+            	                               PortWriteByte(0x28b,0x88);
+            	                               PortWriteByte(0x28a,0xf0);	
+            	                               PortReadByte(0x28a,&data);
+            	                               i=i|data;
+            	                               if (i==0x77) j=0;
+              	                               else if(i==0x7b) j=1;
+              	                               else if(i==0x7d) j=2;
+              	                               else if(i==0x7e) j=3;
+              	                               else if(i==0xb7) j=4;
+              	                               else if(i==0xbb) j=5;
+              	                               else if(i==0xbd) j=6;
+              	                               else if(i==0xbe) j=7;
+              	                               else if(i==0xd7) j=8;
+              	                               else if(i==0xdb) j=9;
+		                else if(i==0xdd)    //按下A键计算频率输出值
+                                                                 {
+					big(m,n);
+					count(num);
+			            printf("\n理想输出的频率值：");
+					printf("%d",num);
+					printf("HZ");
+					printf("\n实际输出频率：");
+					printf("%d",sj);
+					printf("HZ\n");
+				 }
+				else if(i==0xde) //按下B键，清屏并重新输入
+				{
+					clear();
+					bigger(m,n);
+					printf("\nLCD已清屏，重新输入:\n请输入频率初值：");
+					num=0;
+					n=0;
+	                                                 }
+				else; 
+				if(i!=0xdd & i!=0xde){
+					printf("%d",j);   //在cmd显示按下的键值
+					num=num*10+j;
+					if(num>1000000){num=1000000;}
+					m[n++]=j;
+				}
+			}
+		}
+	 }
+	 Cleanup();/*关闭设备*/}
